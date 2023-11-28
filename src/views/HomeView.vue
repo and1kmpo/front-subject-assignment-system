@@ -1,9 +1,10 @@
 <template>
-  <div class="row text-center d-flex justify-content-center">
+  <div class="row text-center d-flex justify-content-center mt-3">
+    <h1>Students list</h1>
     <div class="col-lg-10">
       <div class="table-responsive">
         <table
-          class="table table-dark table-bordered table-hover table-striped"
+          class="table table-success table-hover align-middle table-bordered"
         >
           <thead>
             <tr>
@@ -18,7 +19,7 @@
           </thead>
           <tbody class="table-group-divider" id="content">
             <tr v-if="loading">
-              <td colspan="6">
+              <td colspan="7">
                 <h3>Loading...</h3>
               </td>
             </tr>
@@ -50,18 +51,18 @@
               ></td>
               <td>
                 <router-link
-                  :to="{ path: 'view/' + student.id }"
+                  :to="{ path: 'viewStudent/' + student.id }"
                   class="btn btn-info"
                 >
                   <i class="fa-solid fa-eye"></i>
                 </router-link>
                 &nbsp;
-                <button
-                  :to="{ path: 'edit/' + student.id }"
+                <router-link
+                  :to="{ path: 'editStudent/' + student.id }"
                   class="btn btn-warning"
                 >
                   <i class="fa-solid fa-edit"></i>
-                </button>
+                </router-link>
                 &nbsp;
                 <button
                   :to="{ path: 'delete/' + student.id }"

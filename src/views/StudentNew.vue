@@ -180,8 +180,11 @@
             </div>
           </div>
           <div class="text-center">
-            <button @click.prevent="save" class="btn btn-primary">Save</button>
+            <button @click.prevent="save" class="btn btn-primary">
+              <i class="fa-solid fa-floppy-disk"></i> Save
+            </button>
             <button @click.prevent="reset" class="btn btn-secondary ms-2">
+              <i class="fa-solid fa-broom"></i>
               Reset
             </button>
           </div>
