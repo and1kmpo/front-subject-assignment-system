@@ -31,14 +31,19 @@ export function confirm(url, id, title, message, icon = "question") {
       text: message,
       icon: icon,
       showCancelButton: true,
-      confirmButton: '<i class="fa-solid fa-check"></i> Yes, delete!',
-      cancelButtonText: '<i class="fa-solid fa-ban"></i> Cancel',
+      confirmButtonText: '<i class="fa fa-check"></i> Yes, delete!',
+      cancelButtonText: '<i class="fa fa-ban"></i> Cancel',
+      confirmButtonIcon: "fa-check",
+      cancelButtonIcon: "fa-ban",
     })
     .then((res) => {
       if (res.isConfirmed) {
         sendRequest("DELETE", { id: id }, urlWithId, "Deleted successfully!");
       } else {
         showAlert("Operation cancelled", "info");
+        setTimeout(() => {
+          swalWithBootstrapButton.close();
+        }, 1000);
       }
     });
 }
