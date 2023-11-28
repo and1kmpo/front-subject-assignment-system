@@ -1,33 +1,32 @@
-# Frontend del Sistema de Asignación de Materias
+# Frontend of the Subject Assignment System
 
-Este es el frontend para el Sistema de Asignación de Materias. Permite a los usuarios agregar, ver estudiantes.
+This is the frontend for the Subject Assignment System. Allows users to add, view students.
 
-## Tecnologías Utilizadas
+## Used technology
 
-- Vue.js: El framework de JavaScript utilizado para construir la interfaz de usuario.
-- Bootstrap: Para estilos y diseño responsivo.
-- Axios: Biblioteca para realizar solicitudes HTTP.
+- Vue.js: The JavaScript framework used to build the user interface.
+- Bootstrap: For responsive styles and design.
+- Axios: Library to make HTTP requests.
 
-## Configuración del Proyecto
+## Project Configuration
 
-1. Clona este repositorio: `git clone https://github.com/and1kmpo/front-subject-assignment-system.git`
-2. Instala las dependencias: `npm install`
-3. Ejecuta el servidor de desarrollo: `npm run serve`
+1. Clone this repository: `git clone https://github.com/and1kmpo/front-subject-assignment-system.git`
+2. Install the dependencies: `npm install`
+3. Run the development server: `npm run serve`
 
-## Funcionalidades Principales
+## Main Features
 
-- Agregar nuevos estudiantes.
-- Editar información de los estudiantes.
-- Eliminar estudiantes.
-- Visualizar la lista de estudiantes.
+- Add new students.
+- Edit student information.
+- Delete students.
+- View the list of students.
 
-## Capturas de Pantalla
-Lista de estudiantes registrados
+## Screenshots
+List of registered students
 ![image](https://github.com/and1kmpo/front-subject-assignment-system/assets/9057319/805183fc-5d37-4110-af5f-8ba307376705)
 
-Formulario para crear un nuevo estudiante
+Form to create a new student
 ![image](https://github.com/and1kmpo/front-subject-assignment-system/assets/9057319/5419f3cb-4c08-48c8-b77c-e96635bc2fda)
 
-Validación de campos con SweetAlert
+Validating fields with SweetAlert
 ![image](https://github.com/and1kmpo/front-subject-assignment-system/assets/9057319/ffc7fbb7-bc97-4b7e-b104-526604f7c65c)
-
