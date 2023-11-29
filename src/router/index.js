@@ -1,16 +1,24 @@
 import { createRouter, createWebHistory } from "vue-router";
+/* Students */
 import HomeView from "../views/student/HomeView.vue";
 import StudentNew from "../views/student/StudentNew.vue";
 import StudentEdit from "../views/student/StudentEdit.vue";
 import StudentView from "../views/student/StudentView.vue";
+/* Progfessors */
 import HomeViewProfessors from "../views/professor/HomeView.vue";
 import ProfessorNew from "../views/professor/ProfessorNew.vue";
 import ProfessorEdit from "../views/professor/ProfessorEdit.vue";
 import ProfessorView from "../views/professor/ProfessorView.vue";
+/* Subjects */
 import HomeViewSubjects from "../views/subject/HomeView.vue";
 import SubjectNew from "../views/subject/SubjectEdit.vue";
 import SubjectEdit from "../views/subject/SubjectEdit.vue";
 import SubjectView from "../views/subject/SubjectView.vue";
+/* Programs */
+import HomeViewPrograms from "../views/program/HomeView.vue";
+import ProgramNew from "../views/program/ProgramNew.vue";
+import ProgramEdit from "../views/program/ProgramEdit.vue";
+import ProgramView from "../views/program/ProgramView.vue";
 
 const routes = [
   /* Students */
@@ -77,6 +85,27 @@ const routes = [
     path: "/subject/SubjectView/:id",
     name: "SubjectView",
     component: SubjectView,
+  },
+  /* Programs */
+  {
+    path: "/program/HomeView",
+    name: "HomeViewPrograms",
+    component: HomeViewPrograms,
+  },
+  {
+    path: "/program/ProgramNew",
+    name: "ProgramNew",
+    component: ProgramNew,
+  },
+  {
+    path: "/program/ProgramEdit/:id",
+    name: "ProgramEdit",
+    component: ProgramEdit,
+  },
+  {
+    path: "/program/ProgramView/:id",
+    name: "ProgramView",
+    component: ProgramView,
   },
 ];
 

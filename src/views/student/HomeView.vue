@@ -81,7 +81,7 @@
 
 <script>
 import axios from "axios";
-import { confirm } from "../../functions";
+import { confirm, showAlert } from "../../functions";
 
 export default {
   data() {
@@ -101,6 +101,11 @@ export default {
         .then((res) => {
           this.students = res.data;
           this.loading = false;
+        })
+        .catch((error) => {
+          // Manejar errores de la solicitud, si es necesario
+          console.error("Error fetching students:", error);
+          this.loading = false;
         });
     },
     deleteRecord(id, name) {
@@ -108,9 +113,22 @@ export default {
         "http://subjectassignmentsystem.test/api/students/",
         id,
         "Delete record",
-        "Are you sure you want to delete to " + name + " ?"
-      );
-      this.loading = false;
+        "Are you sure you want to delete " + name + " ?"
+      )
+        .then((result) => {
+          if (!result.canceled) {
+            // La operación no fue cancelada
+            // Puedes hacer algo adicional si es necesario
+            this.getStudents(); // Actualizar la lista después de eliminar
+          } else {
+            // La operación fue cancelada
+            showAlert("Delete operation cancelled", "info");
+          }
+        })
+        .catch((error) => {
+          // Manejar otros errores si es necesario
+          console.error("Error confirming delete:", error);
+        });
     },
   },
 };

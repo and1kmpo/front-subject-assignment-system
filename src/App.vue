@@ -89,6 +89,30 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Programs
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <router-link class="dropdown-item" to="/program/HomeView"
+                  >Show programs</router-link
+                >
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/program/ProgramNew"
+                  >New programs</router-link
+                >
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
