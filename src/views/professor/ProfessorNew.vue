@@ -2,9 +2,9 @@
   <div class="m-4">
     <div class="card col-6 mx-auto">
       <div class="card-header bg-dark text-white text-center">
-        <h4>Add student</h4>
+        <h4>Add professor</h4>
       </div>
-      <div class="card-body">
+      <div class="card-body bg-body-secondary">
         <form v-on:submit="save">
           <div class="row mb-3">
             <div class="col-6 mx-auto text-center">
@@ -138,52 +138,16 @@
                 required
               />
             </div>
-            <div class="input-group mb-2">
-              <label class="input-group-text" for="program">
-                <i class="fa-solid fa-building-columns"></i>
-              </label>
-              <select
-                class="form-select"
-                v-model="selectedProgram"
-                id="program"
-                required
-              >
-                <option value="" disabled>Select a program</option>
-                <option
-                  v-for="program in programs"
-                  :key="program.id"
-                  :value="program.id"
-                >
-                  {{ program.name }}
-                </option>
-              </select>
-            </div>
-            <div class="input-group mb-2">
-              <label class="input-group-text" for="semester">
-                <i class="fa-solid fa-building-columns"></i>
-              </label>
-              <select
-                class="form-select"
-                v-model="selectedSemester"
-                id="semester"
-                required
-              >
-                <option value="" disabled>Select a semester</option>
-                <option
-                  v-for="semesterOption in semesters"
-                  :key="semesterOption"
-                  :value="semesterOption"
-                >
-                  {{ semesterOption }}
-                </option>
-              </select>
-            </div>
           </div>
           <div class="text-center">
             <button @click.prevent="save" class="btn btn-primary">
               <i class="fa-solid fa-floppy-disk"></i> Save
             </button>
-            <button @click.prevent="reset" class="btn btn-secondary ms-2">
+            <button
+              @click.prevent="reset"
+              class="btn btn-secondary ms-2"
+              type="reset"
+            >
               <i class="fa-solid fa-broom"></i>
               Reset
             </button>
@@ -195,7 +159,7 @@
 </template>
 
 <script>
-import { showAlert, sendRequest } from "../functions";
+import { showAlert, sendRequest } from "../../functions";
 import axios from "axios";
 
 export default {
@@ -213,12 +177,9 @@ export default {
       selectedProgram: "",
       selectedSemester: "",
       semesters: Array.from({ length: 10 }, (_, index) => index + 1),
-      url: "http://subjectassignmentsystem.test/api/students",
+      url: "http://subjectassignmentsystem.test/api/professors",
       loading: false,
     };
-  },
-  mounted() {
-    this.fetchPrograms();
   },
   methods: {
     save() {
@@ -239,15 +200,21 @@ export default {
         address: this.address,
         city: this.city,
         picture: this.picture,
-        program_id: this.selectedProgram,
-        semester: this.selectedSemester,
       };
 
-      sendRequest("POST", params, this.url, "Student saved!")
-        .then(console.log(response))
+      sendRequest(
+        "POST",
+        params,
+        "http://subjectassignmentsystem.test/api/professors",
+        "Professor created!",
+        "/professor/HomeView"
+      )
+        .then((response) => {
+          console.log(response);
+        })
         .catch((error) => {
-          console.error("Error saving student:", error);
-          let errorMessage = "Error saving student. Please try again.";
+          console.error("Error saving professor:", error);
+          let errorMessage = "Error saving professor. Please try again.";
 
           if (
             error.response &&
@@ -269,14 +236,14 @@ export default {
       if (!this.last_name.trim()) {
         validationErrors.push("Enter a last name");
       }
+      if (!this.document) {
+        validationErrors.push("Enter a document");
+      }
       if (!this.address.trim()) {
         validationErrors.push("Enter an address");
       }
       if (!this.city.trim()) {
         validationErrors.push("Enter a city");
-      }
-      if (!this.selectedProgram) {
-        validationErrors.push("Select a program");
       }
       const phoneRegex = /^[0-9]{10}$/;
       if (!this.phone || !phoneRegex.test(this.phone)) {
@@ -289,17 +256,6 @@ export default {
       }
 
       return validationErrors;
-    },
-
-    fetchPrograms() {
-      axios
-        .get("http://subjectassignmentsystem.test/api/programs")
-        .then((response) => {
-          this.programs = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching programs:", error);
-        });
     },
     previewPicture(event) {
       let reader = new FileReader();
