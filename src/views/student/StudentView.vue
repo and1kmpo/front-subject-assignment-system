@@ -4,12 +4,7 @@
       <div class="card-header bg-dark text-white text-center">
         <h4>Student details</h4>
       </div>
-      <div class="card-body">
-        <div class="d-grid gap-2 col-6 mx-auto mb-3">
-          <router-link :to="{ path: '/' }" class="btn btn-info">
-            <i class="fa-solid fa-arrow-left"></i> Return student list
-          </router-link>
-        </div>
+      <div class="card-body bg-body-secondary">
         <div class="row mb-3">
           <div class="col-6 mx-auto text-center">
             <img
@@ -117,13 +112,21 @@
             </select>
           </div>
         </div>
+        <div class="d-grid col-6 mx-auto mt-4">
+          <router-link
+            :to="{ name: 'HomeViewProfessors' }"
+            class="btn btn-info"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Return student list
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { showAlert, sendRequest } from "../functions";
+import { showAlert, sendRequest } from "../../functions";
 import axios from "axios";
 import { useRoute } from "vue-router";
 

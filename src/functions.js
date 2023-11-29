@@ -25,7 +25,7 @@ export function confirm(url, id, title, message, icon = "question") {
     },
   });
 
-  swalWithBootstrapButton
+  return swalWithBootstrapButton
     .fire({
       title: title,
       text: message,
@@ -38,23 +38,33 @@ export function confirm(url, id, title, message, icon = "question") {
     })
     .then((res) => {
       if (res.isConfirmed) {
-        sendRequest("DELETE", { id: id }, urlWithId, "Deleted successfully!");
+        return sendRequest(
+          "DELETE",
+          { id: id },
+          urlWithId,
+          "Deleted successfully!"
+        );
       } else {
         showAlert("Operation cancelled", "info");
         setTimeout(() => {
           swalWithBootstrapButton.close();
         }, 1000);
+        return Promise.reject(new Error("Operation cancelled"));
       }
     });
 }
 
-export function sendRequest(method, params, url, successMessage) {
+export function sendRequest(method, params, url, successMessage, redirectPath) {
   return axios({ method: method, url: url, data: params })
     .then((response) => {
       if (response.status === 200) {
         showAlert(successMessage, "success");
         window.setTimeout(function () {
-          window.location.href = "/";
+          if (redirectPath) {
+            window.location.href = redirectPath;
+          } else {
+            window.location.href = "/";
+          }
         }, 2000);
         return response.data;
       } else {

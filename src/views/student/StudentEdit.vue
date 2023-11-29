@@ -4,7 +4,7 @@
       <div class="card-header bg-dark text-white text-center">
         <h4>Edit student</h4>
       </div>
-      <div class="card-body">
+      <div class="card-body bg-body-secondary">
         <form v-on:submit="update">
           <div class="row mb-3">
             <div class="col-6 mx-auto text-center">
@@ -195,7 +195,7 @@
 </template>
 
 <script>
-import { showAlert, sendRequest } from "../functions";
+import { showAlert, sendRequest } from "../../functions";
 import axios from "axios";
 import { useRoute } from "vue-router";
 
@@ -264,7 +264,7 @@ export default {
         semester: this.selectedSemester,
       };
 
-      sendRequest("PUT", params, this.url, "Student updated!")
+      sendRequest("PUT", params, this.url, "Student updated!", "/")
         .then((response) => {
           console.log(response);
         })
@@ -292,6 +292,9 @@ export default {
       if (!this.last_name.trim()) {
         validationErrors.push("Enter a last name");
       }
+      if (!this.document.trim()) {
+        validationErrors.push("Enter a document");
+      }
       if (!this.address.trim()) {
         validationErrors.push("Enter an address");
       }
@@ -300,6 +303,9 @@ export default {
       }
       if (!this.selectedProgram) {
         validationErrors.push("Select a program");
+      }
+      if (!this.selectedSemester) {
+        validationErrors.push("Select a semester");
       }
       const phoneRegex = /^[0-9]{10}$/;
       if (!this.phone || !phoneRegex.test(this.phone)) {

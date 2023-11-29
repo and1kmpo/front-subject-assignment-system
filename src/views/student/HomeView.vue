@@ -13,7 +13,6 @@
               <th scope="col">Picture</th>
               <th scope="col">Name</th>
               <th scope="col">Last name</th>
-              <th scope="col">Register</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -31,34 +30,29 @@
                   v-if="student.picture"
                   :src="student.picture"
                   alt="Profile picture"
-                  style="width: 70px !important"
+                  style="width: 50px !important"
                   class="img-thumbnail"
                 />
                 <img
                   v-else="student.picture"
                   src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-256.png"
                   alt="Profile picture"
-                  style="width: 70px !important"
+                  style="width: 50px !important"
                   class="img-thumbnail"
                 />
               </td>
               <td v-text="student.first_name"></td>
               <td v-text="student.last_name"></td>
-              <td
-                v-text="
-                  new Date(student.created_at).toLocaleDateString('en-US')
-                "
-              ></td>
               <td>
                 <router-link
-                  :to="{ path: 'viewStudent/' + student.id }"
+                  :to="{ path: 'student/viewStudent/' + student.id }"
                   class="btn btn-info"
                 >
                   <i class="fa-solid fa-eye"></i>
                 </router-link>
                 &nbsp;
                 <router-link
-                  :to="{ path: 'editStudent/' + student.id }"
+                  :to="{ path: 'student/editStudent/' + student.id }"
                   class="btn btn-warning"
                 >
                   <i class="fa-solid fa-edit"></i>
@@ -87,7 +81,7 @@
 
 <script>
 import axios from "axios";
-import { confirm } from "../functions";
+import { confirm } from "../../functions";
 
 export default {
   data() {
