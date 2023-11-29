@@ -70,6 +70,7 @@ export default {
       updated_at: "",
       url: "http://subjectassignmentsystem.test/api/subjects",
       loading: false,
+      isMounted: ref(true), // Agrega la propiedad isMounted
     };
   },
   mounted() {
@@ -78,17 +79,33 @@ export default {
     this.url += "/" + this.id;
     this.getSubject();
   },
+  onUnmounted() {
+    this.isMounted.value = false;
+  },
   methods: {
     getSubject() {
       axios.get(this.url).then((res) => {
-        console.log(res);
-        this.name = res.data.data.name;
-        this.description = res.data.data.description;
-        this.credits = res.data.data.credits;
-        this.knowledge_area = res.data.data.knowledge_area;
-        this.elective = res.data.data.elective;
-        this.created_at = res.data.data.created_at;
-        this.updated_at = res.data.data.updated_at;
+        if (this.isMounted.value) {
+          this.name = res.data.data.name;
+          this.description = res.data.data.description;
+          this.credits = res.data.data.credits;
+          this.knowledge_area = res.data.data.knowledge_area;
+          this.elective = res.data.data.elective;
+          this.created_at = res.data.data.created_at;
+          this.updated_at = res.data.data.updated_at;
+        }
+      });
+    },
+    deleteRecord(id, name) {
+      confirm(
+        "http://subjectassignmentsystem.test/api/subjects/",
+        id,
+        "Delete record",
+        "Are you sure you want to delete to " + name + " ?"
+      ).then((result) => {
+        if (!result.canceled && this.isMounted.value) {
+          this.loading = false;
+        }
       });
     },
   },

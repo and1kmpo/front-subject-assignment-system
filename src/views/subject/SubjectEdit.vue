@@ -9,7 +9,8 @@
           <div class="mb-3">
             <div class="input-group mb-2">
               <span class="input-group-text">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user me-2"></i>
+                Subject
               </span>
               <input
                 type="text"
@@ -23,7 +24,8 @@
             </div>
             <div class="input-group mb-2">
               <span class="input-group-text">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user me-2"></i>
+                Descr
               </span>
               <input
                 type="text"
@@ -37,7 +39,8 @@
             </div>
             <div class="input-group mb-2">
               <span class="input-group-text">
-                <i class="fa-solid fa-id-card"></i>
+                <i class="fa-solid fa-id-card me-2"></i>
+                Credits
               </span>
               <input
                 type="number"
@@ -53,7 +56,8 @@
             </div>
             <div class="input-group mb-2">
               <span class="input-group-text">
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-phone me-2"></i>
+                Knowledge area
               </span>
               <input
                 type="text"
@@ -67,7 +71,8 @@
             </div>
             <div class="input-group mb-2">
               <span class="input-group-text">
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-phone me-2"></i>
+                Elective
               </span>
               <select v-model="elective" class="form-select" id="elective">
                 <option value="1">S</option>
@@ -80,7 +85,7 @@
               <i class="fa-solid fa-arrows-rotate"></i> Update
             </button>
             <router-link
-              :to="{ name: 'HomeViewProfessors' }"
+              :to="{ name: 'HomeViewSubjects' }"
               class="btn btn-danger ms-2"
             >
               <i class="fa-regular fa-circle-xmark"></i> Cancel
@@ -136,23 +141,26 @@ export default {
 
       this.loading = true;
       const params = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        document: this.document,
-        phone: this.phone,
-        email: this.email,
-        address: this.address,
-        city: this.city,
-        picture: this.picture,
+        name: this.name,
+        description: this.description,
+        credits: this.credits,
+        knowledge_area: this.knowledge_area,
+        elective: this.elective,
       };
 
-      sendRequest("PUT", params, this.url, "Professor updated!")
+      sendRequest(
+        "PUT",
+        params,
+        this.url,
+        "Subject updated!",
+        "/subject/HomeView"
+      )
         .then((response) => {
           console.log(response);
         })
         .catch((error) => {
-          console.error("Error saving professor:", error);
-          let errorMessage = "Error updating professor. Please try again.";
+          console.error("Error saving subject:", error);
+          let errorMessage = "Error updating subject. Please try again.";
 
           if (
             error.response &&
@@ -168,41 +176,20 @@ export default {
     validateForm() {
       const validationErrors = [];
 
-      if (!this.first_name.trim()) {
+      if (!this.name.trim()) {
         validationErrors.push("Enter a name");
       }
-      if (!this.last_name.trim()) {
-        validationErrors.push("Enter a last name");
+      if (!this.description.trim()) {
+        validationErrors.push("Enter a description");
       }
-      if (!this.document.trim()) {
-        validationErrors.push("Enter a document");
+      if (!this.credits) {
+        validationErrors.push("Enter the number of credits");
       }
-      if (!this.address.trim()) {
-        validationErrors.push("Enter an address");
-      }
-      if (!this.city.trim()) {
-        validationErrors.push("Enter a city");
-      }
-      const phoneRegex = /^[0-9]{10}$/;
-      if (!this.phone || !phoneRegex.test(this.phone)) {
-        showAlert("Enter a valid 10-digit phone number", "warning", "phone");
-        validationErrors.push("Enter a valid 10-digit phone number");
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!this.email.trim() || !emailRegex.test(this.email)) {
-        validationErrors.push("Enter a valid email address");
+      if (!this.knowledge_area.trim()) {
+        validationErrors.push("Enter a knowledge area");
       }
 
       return validationErrors;
-    },
-    previewPicture(event) {
-      let reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () => {
-        let myPicture = document.getElementById("pictureImg");
-        myPicture.src = reader.result;
-        this.picture = myPicture.src;
-      };
     },
   },
 };

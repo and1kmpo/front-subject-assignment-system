@@ -45,11 +45,7 @@ export function confirm(url, id, title, message, icon = "question") {
           "Deleted successfully!"
         );
       } else {
-        showAlert("Operation cancelled", "info");
-        setTimeout(() => {
-          swalWithBootstrapButton.close();
-        }, 1000);
-        return Promise.reject(new Error("Operation cancelled"));
+        return { canceled: true };
       }
     });
 }
