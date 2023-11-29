@@ -1,6 +1,6 @@
 # Frontend of the Subject Assignment System
 
-This is the frontend for the Subject Assignment System. Allows users to add, view students.
+This is the frontend for the Subject Assignment System. Allows users to add, edit, view, delete to students, professors and subjects.
 
 ## Used technology
 
