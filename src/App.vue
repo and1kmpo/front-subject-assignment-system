@@ -113,6 +113,34 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Assignments
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <router-link
+                  class="dropdown-item"
+                  to="/professor_subject/AssignmentSubjectProfessor"
+                  >Assign subject to professor</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  class="dropdown-item"
+                  to="/student_subject_professor/AssignmentSubjectStudent"
+                  >Assign subject to student</router-link
+                >
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

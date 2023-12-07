@@ -19,6 +19,9 @@ import HomeViewPrograms from "../views/program/HomeView.vue";
 import ProgramNew from "../views/program/ProgramNew.vue";
 import ProgramEdit from "../views/program/ProgramEdit.vue";
 import ProgramView from "../views/program/ProgramView.vue";
+/* Assignment subject */
+import AssignmentSubjectProfessor from "../views/professor_subject/AssignmentSubjectProfessor.vue";
+import AssignmentSubjectStudent from "../views/student_subject_professor/AssignmentSubjectStudent.vue";
 
 const routes = [
   /* Students */
@@ -106,6 +109,18 @@ const routes = [
     path: "/program/ProgramView/:id",
     name: "ProgramView",
     component: ProgramView,
+  },
+  /* Assignment subject to professor */
+  {
+    path: "/professor_subject/AssignmentSubjectProfessor",
+    name: "AssignmentSubject",
+    component: AssignmentSubjectProfessor,
+  },
+  /* Assignment subject to student */
+  {
+    path: "/student_subject_professor/AssignmentSubjectStudent",
+    name: "AssignmentSubjectStudent",
+    component: AssignmentSubjectStudent,
   },
 ];
 

@@ -1,51 +1,44 @@
 <template>
   <div class="m-4">
-    <div class="card col-8 mx-auto">
+    <div class="card col-6 mx-auto">
       <div class="card-header bg-dark text-white text-center">
         <h4>Subject details</h4>
       </div>
       <div class="card-body bg-body-secondary">
-        <table
-          class="table table-bordered table-hover table-bordered border-success"
-        >
-          <tbody>
-            <tr>
-              <th scope="row" class="w-25">ID</th>
-              <td>{{ id }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Name</th>
-              <td>{{ name }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Description</th>
-              <td>{{ description }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Credits</th>
-              <td>{{ credits }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Knowledge Area</th>
-              <td>{{ knowledge_area }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Elective</th>
-              <td>{{ elective === "1" ? "S" : "N" }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Created at</th>
-              <td>{{ created_at }}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="w-25">Updated at</th>
-              <td>{{ updated_at }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>ID:</strong> <span v-text="id"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Name:</strong> <span v-text="name"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Description:</strong> <span v-text="description"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Credits:</strong> <span v-text="credits"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Knowledge Area:</strong>
+            <span v-text="knowledge_area"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Elective:</strong>
+            <span v-text="elective === 1 ? 'S' : 'N'"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Created At:</strong>
+            <span v-text="formattedCreatedAt"></span>
+          </li>
+          <li class="list-group-item">
+            <strong>Updated At:</strong>
+            <span v-text="formattedUpdatedAt"></span>
+          </li>
+        </ul>
+
         <div class="d-grid col-6 mx-auto mt-4">
-          <router-link :to="{ name: 'HomeViewSubjects' }" class="btn btn-info">
-            <i class="fa-solid fa-arrow-left"></i> Return subjects list
+          <router-link :to="{ name: 'HomeViewPrograms' }" class="btn btn-info">
+            <i class="fa-solid fa-arrow-left"></i> Return programs list
           </router-link>
         </div>
       </div>
@@ -56,6 +49,10 @@
 <script>
 import axios from "axios";
 import { useRoute } from "vue-router";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(localizedFormat);
 
 export default {
   data() {
@@ -70,43 +67,43 @@ export default {
       updated_at: "",
       url: "http://subjectassignmentsystem.test/api/subjects",
       loading: false,
-      isMounted: ref(true), // Agrega la propiedad isMounted
     };
+  },
+  computed: {
+    formattedCreatedAt() {
+      return this.created_at ? this.formatDate(this.created_at) : "N/A";
+    },
+    formattedUpdatedAt() {
+      return this.updated_at ? this.formatDate(this.updated_at) : "N/A";
+    },
   },
   mounted() {
     const route = useRoute();
     this.id = route.params.id;
     this.url += "/" + this.id;
-    this.getSubject();
-  },
-  onUnmounted() {
-    this.isMounted.value = false;
+    this.getProfessor();
   },
   methods: {
-    getSubject() {
+    getProfessor() {
       axios.get(this.url).then((res) => {
-        if (this.isMounted.value) {
-          this.name = res.data.data.name;
-          this.description = res.data.data.description;
-          this.credits = res.data.data.credits;
-          this.knowledge_area = res.data.data.knowledge_area;
-          this.elective = res.data.data.elective;
-          this.created_at = res.data.data.created_at;
-          this.updated_at = res.data.data.updated_at;
-        }
+        console.log(res);
+        this.id = res.data.data.id;
+        this.name = res.data.data.name;
+        this.description = res.data.data.description;
+        this.credits = res.data.data.credits;
+        this.knowledge_area = res.data.data.knowledge_area;
+        this.elective = res.data.data.elective;
+        this.created_at = res.data.data.created_at;
+        this.updated_at = res.data.data.updated_at;
       });
     },
-    deleteRecord(id, name) {
-      confirm(
-        "http://subjectassignmentsystem.test/api/subjects/",
-        id,
-        "Delete record",
-        "Are you sure you want to delete to " + name + " ?"
-      ).then((result) => {
-        if (!result.canceled && this.isMounted.value) {
-          this.loading = false;
-        }
-      });
+    formatDate(date) {
+      try {
+        return dayjs(date).format("LLL");
+      } catch (error) {
+        console.error("Error formatting date:", error);
+        return "Invalid Date";
+      }
     },
   },
 };

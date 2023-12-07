@@ -1,8 +1,8 @@
 <template>
   <div class="m-4">
-    <div class="card col-6 mx-auto">
+    <div class="card mx-auto" style="max-width: 400px">
       <div class="card-header bg-dark text-white text-center">
-        <h4>Student details</h4>
+        <h4>Student Details</h4>
       </div>
       <div class="card-body bg-body-secondary">
         <div class="row mb-3">
@@ -26,98 +26,66 @@
           </div>
         </div>
 
-        <div class="mb-3">
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-user"></i>
-            </span>
-            <label class="form-control" v-text="first_name"></label>
-          </div>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-user"></i>
-            </span>
-            <label class="form-control" v-text="last_name"></label>
-          </div>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-id-card"></i>
-            </span>
-            <label class="form-control" v-text="document"></label>
-          </div>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-phone"></i>
-            </span>
-            <label class="form-control" v-text="phone"></label>
-          </div>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-at"></i>
-            </span>
-            <label class="form-control" v-text="email"></label>
-          </div>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-home"></i>
-            </span>
-            <label class="form-control" v-text="address"></label>
-          </div>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="fa-solid fa-city"></i>
-            </span>
-            <label class="form-control" v-text="city"></label>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text" for="program">
-              <i class="fa-solid fa-building-columns"></i>
-            </label>
-            <select
-              class="form-select"
-              v-model="selectedProgram"
-              id="program"
-              required
-              disabled
-            >
-              <option value="" disabled>Select a program</option>
-              <option
-                v-for="program in programs"
-                :key="program.id"
-                :value="program.id"
-              >
-                {{ program.name }}
-              </option>
-            </select>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text" for="semester">
-              <i class="fa-solid fa-building-columns"></i>
-            </label>
-            <select
-              class="form-select"
-              v-model="selectedSemester"
-              id="semester"
-              required
-              disabled
-            >
-              <option value="" disabled>Select a semester</option>
-              <option
-                v-for="semesterOption in semesters"
-                :key="semesterOption"
-                :value="semesterOption"
-              >
-                {{ semesterOption }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="d-grid col-6 mx-auto mt-4">
-          <router-link
-            :to="{ name: 'HomeViewProfessors' }"
-            class="btn btn-info"
+        <ul class="list-group list-group-flush">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
           >
-            <i class="fa-solid fa-arrow-left"></i> Return student list
+            <strong>First Name</strong>
+            <span v-text="first_name"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Last Name</strong>
+            <span v-text="last_name"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Document</strong>
+            <span v-text="document"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Phone</strong>
+            <span v-text="phone"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Email</strong>
+            <span v-text="email"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Address</strong>
+            <span v-text="address"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>City</strong>
+            <span v-text="city"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Program</strong>
+            <span v-text="selectedProgram"></span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <strong>Semester</strong>
+            <span v-text="selectedSemester"></span>
+          </li>
+        </ul>
+
+        <div class="d-grid col-6 mx-auto mt-4">
+          <router-link :to="{ name: 'Home' }" class="btn btn-info">
+            <i class="fa-solid fa-arrow-left"></i> Return to Student List
           </router-link>
         </div>
       </div>
@@ -142,7 +110,7 @@ export default {
       address: "",
       city: "",
       picture: "",
-      programs: [],
+      programs: {},
       selectedProgram: "",
       selectedSemester: "",
       semesters: Array.from({ length: 10 }, (_, index) => index + 1),

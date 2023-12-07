@@ -103,7 +103,6 @@ export default {
           this.loading = false;
         })
         .catch((error) => {
-          // Manejar errores de la solicitud, si es necesario
           console.error("Error fetching students:", error);
           this.loading = false;
         });
@@ -117,16 +116,12 @@ export default {
       )
         .then((result) => {
           if (!result.canceled) {
-            // La operación no fue cancelada
-            // Puedes hacer algo adicional si es necesario
-            this.getStudents(); // Actualizar la lista después de eliminar
+            this.getStudents();
           } else {
-            // La operación fue cancelada
             showAlert("Delete operation cancelled", "info");
           }
         })
         .catch((error) => {
-          // Manejar otros errores si es necesario
           console.error("Error confirming delete:", error);
         });
     },
